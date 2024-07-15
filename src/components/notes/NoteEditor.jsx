@@ -27,14 +27,20 @@ const NoteEditor = () => {
         setTitle('');
         setNote('');
         setOrderNumber(1);
-        setIsColorPickerOpen(false)
-        setIsChecklist(false)
+        setIsColorPickerOpen(false);
+        setIsChecklist(false);
         setColor('#ffffff');
         setTasks([{ text: '', completed: false, orderNumber }]);
         setIsExpanded(false);
-    }
+    };
 
     const handleSave = () => {
+        const isNoteEmpty = !title && !note && tasks.every(task => !task.text);
+        if (isNoteEmpty) {
+            handleResetState();
+            return;
+        }
+
         dispatch(addNote({
             id: new Date().getTime(),
             title,

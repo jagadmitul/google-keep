@@ -58,6 +58,12 @@ const NoteForm = ({ isOpen, onClose, note }) => {
     };
 
     const handleSave = () => {
+        const isNoteEmpty = !title && !noteContent && tasks.every(task => !task.text);
+        if (isNoteEmpty) {
+            onClose();
+            return;
+        }
+
         const noteData = {
             id: note ? note.id : new Date().getTime(),
             title,
